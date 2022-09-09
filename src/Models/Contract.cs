@@ -7,6 +7,7 @@
             this.DateCreate = DateTime.Now;
             this.Valor = 0;
             this.TokenId = "00000";
+            this.Paid = false;
         }
         public Contract(string TokenID, double Valor)
         {
@@ -18,6 +19,7 @@
         public DateTime DateCreate { get; set; }
         public string TokenId { get; set; }
         public double Valor { get; set; }
+        public bool Paid { get; set; }
 
     }
 }

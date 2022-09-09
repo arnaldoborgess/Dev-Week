@@ -5,19 +5,19 @@
 
 - Models
 - Controllers
-- Arquivos de Código
-- Arquivos de Configuração
+- Arquivos de CÃ³digo
+- Arquivos de ConfiguraÃ§Ã£o
 
-- Requisições HTTP
+- RequisiÃ§Ãµes HTTP
 
 ### Arquitetura de pastas
 - Criar Pasta Source (src)
 - Criar pasta Models
 
-A pasta src são arquivos para codar e os arquivos fora são de configuração.
-A pasta Models é para armazenar os modelos ou seja classes.
+A pasta src sÃ£o arquivos para codar e os arquivos fora sÃ£o de configuraÃ§Ã£o.
+A pasta Models armazenar as classes de modelos.
 
-### Requisições HTTP
+### RequisiÃ§Ãµes HTTP
 
 - Get - Selecionar/Buscar Dados
 - Post - Enviar dados
