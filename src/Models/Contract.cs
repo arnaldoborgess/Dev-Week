@@ -15,11 +15,12 @@
             this.TokenId = TokenID;
             this.Valor = Valor;
         }
-
+        public int Id { get; set; }
         public DateTime DateCreate { get; set; }
         public string TokenId { get; set; }
         public double Valor { get; set; }
         public bool Paid { get; set; }
+        public int PersonId { get; set; }
 
     }
 }
