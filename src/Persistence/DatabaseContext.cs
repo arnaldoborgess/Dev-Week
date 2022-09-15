@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using api_dev_week.src.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api_dev_week.src.Persistence
 {
@@ -10,7 +9,6 @@ namespace api_dev_week.src.Persistence
             <DatabaseContext> options) : base(options)
         {
         }
-
 
         public DbSet<Person> Persons { get; set; }
         public DbSet<Contract> Contracts { get; set; }

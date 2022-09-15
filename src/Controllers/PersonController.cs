@@ -24,16 +24,12 @@ namespace api_dev_week.src.Controllers
 		[HttpGet]
 		public ActionResult<List <Person>> Get()
 		{
-            //Person person = new Person("Arnaldo", 41, "12345678");
-            //Contract newContract = new Contract("abc123", 50.56);
-            //person.Contracts.Add(newContract);
-            //return person;
+ 
 			var result = _context.Persons.Include(p => p.Contracts).ToList();
 
 			if(!result.Any()) return NoContent();
 
 			return Ok(result);
-
 		}
 
 		[HttpPost]
@@ -48,8 +44,6 @@ namespace api_dev_week.src.Controllers
 			{
 				return BadRequest();
 			}
-
-			
 
 			return Created("created", person);
 		}
@@ -70,9 +64,6 @@ namespace api_dev_week.src.Controllers
                 }	
 				);
 			}
-            //Console.WriteLine(Id);
-            //Console.WriteLine(person);
-            //return "Update " + Id + " Data";
 
             try
 			{
