@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using api_dev_week.src;
 using api_dev_week.src.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

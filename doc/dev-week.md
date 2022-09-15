@@ -24,3 +24,19 @@ A pasta Models armazenar as classes de modelos.
 - Put - Atualizar dados
 - Patch - Atualizar parcialmente os dados
 - Delete - Deletar dados
+
+### Assuntos para pesquisar.
+
+## Api
+
+- DTO (Data transfer Object) - Design Patter
+- Injeção de dependências
+- Repository Patter
+
+## Entity Framework
+- Migrations
+- Os comandos do entity framework
+
+## Outros Assuntos
+
+- Criação de Enuns

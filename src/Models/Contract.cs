@@ -21,6 +21,5 @@
         public double Valor { get; set; }
         public bool Paid { get; set; }
         public int PersonId { get; set; }
-
     }
 }
