@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+
 using api_dev_week.src.Models;
 using api_dev_week.src.Persistence;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace api_dev_week.src.Controllers
 {
@@ -9,6 +12,8 @@ namespace api_dev_week.src.Controllers
 	[Route("controller")]
 	public class PersonController : ControllerBase
 	{
+		private int id;
+
 		private DatabaseContext	_context { get; set; }
 
 		public PersonController(DatabaseContext context)
@@ -17,44 +22,102 @@ namespace api_dev_week.src.Controllers
 		}
 
 		[HttpGet]
-		public List <Person> Get()
+		public ActionResult<List <Person>> Get()
 		{
             //Person person = new Person("Arnaldo", 41, "12345678");
             //Contract newContract = new Contract("abc123", 50.56);
-
             //person.Contracts.Add(newContract);
             //return person;
+			var result = _context.Persons.Include(p => p.Contracts).ToList();
 
-            return _context.Persons.Include(p => p.Contracts).ToList();
+			if(!result.Any()) return NoContent();
+
+			return Ok(result);
 
 		}
 
 		[HttpPost]
-		public Person Post([FromBody]Person person)
+		public ActionResult<Person> Post([FromBody]Person person)
 		{
-			_context.Persons.Add(person);
-			_context.SaveChanges();
+			try
+			{
+                _context.Persons.Add(person);
+                object value = _context.SaveChanges();
+            }
+			catch (Exception)
+			{
+				return BadRequest();
+			}
 
-			return person;
+			
+
+			return Created("created", person);
 		}
 
 		[HttpPut("{Id}")]
-		public string Update([FromRoute]int Id, [FromBody]Person person)
+		public ActionResult<Object> Update
+			([FromRoute]int Id, 
+			[FromBody]Person person)
 		{
-			//Console.WriteLine(Id);
-			//Console.WriteLine(person);
-			//return "Update " + Id + " Data";
+            var result = _context.Persons.SingleOrDefault(e => e.Id == id);
+			if(result is null)
+			{
+				return NotFound(
+				new
+				{
+					msg = "Register not found",
+					status = HttpStatusCode.NotFound
+                }	
+				);
+			}
+            //Console.WriteLine(Id);
+            //Console.WriteLine(person);
+            //return "Update " + Id + " Data";
 
-			_context.Persons.Update(person);
-			_context.SaveChanges();
+            try
+			{
+				_context.Persons.Update(person);
+				_context.SaveChanges();
+			}
+			catch (Exception)
+			{
+				return BadRequest(new
+                {
+                    msg = $"There was an error sending authentication request {Id} updated",
+                    status = HttpStatusCode.OK
+                });
+			}
 
-            return "Update " + Id + " Data";
+            return Ok(new
+			{
+				msg = $"Id data {Id} updated",
+				status = HttpStatusCode.OK
+			}); 
         }
 
 		[HttpDelete("{Id}")]
-		public string Delete([FromRoute]int Id)
+
+		public ActionResult<Object> Delete([FromRoute] int id)
 		{
-			return "Deleted person Id " + Id;
+			var result = _context.Persons.SingleOrDefault(e => e.Id == id);
+
+			if (result is null)
+			{
+				return BadRequest(new
+				{
+					msg = "Content missing, invalid request",
+					status = HttpStatusCode.BadRequest
+				});
+			}
+			_context.Persons.Remove(result);
+			_context.SaveChanges();
+
+			return Ok(new
+			{
+                msg = $"Deleted person Id {id}",
+				status = HttpStatusCode.OK
+            }); 
+
 		}
 	}
 }
